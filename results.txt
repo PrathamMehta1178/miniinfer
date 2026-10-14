@@ -1,0 +1,113 @@
+=== TESTS ===
+ALL PASSED (0 failures)
+ALL PASSED (0 failures)
+=== CPU ===
+CPU(s):                                  8
+Model name:                              Intel(R) Core(TM) Ultra 9 288V
+Thread(s) per core:                      1
+Core(s) per socket:                      8
+=== BENCH RUN 1 ===
+MiniInfer benchmark | OpenMP threads: 8
+
+MATMUL  C[n x n] = A[n x n] * B[n x n]
+kernel          n    median ms       p95 ms    GFLOP/s   reps
+naive          64        0.067        0.081       7.78    100
+reordered      64        0.015        0.017      35.97    100
+blocked        64        0.017        0.021      30.04    100
+parallel       64        0.019        0.025      28.28    100
+naive         128        0.640        0.763       6.55    100
+reordered     128        0.135        0.183      31.04    100
+blocked       128        0.171        0.225      24.53    100
+parallel      128        3.624       11.255       1.16    100
+naive         256        9.165       17.549       3.66     99
+reordered     256        1.464        2.260      22.92    100
+blocked       256        1.968        3.149      17.05    100
+parallel      256        2.884       10.338      11.63    100
+naive         512      101.500      106.295       2.64     10
+reordered     512       10.440       12.128      25.71     94
+blocked       512       14.693       16.123      18.27     68
+parallel      512        3.727       14.633      72.03    100
+naive        1024     2546.930     2626.217       0.84      3
+reordered    1024       94.568       96.537      22.71     11
+blocked      1024      134.148      140.477      16.01      8
+parallel     1024       19.323       33.368     111.13     46
+
+MODEL  end-to-end forward pass
+kernel      batch    median ms       p95 ms       images/s   reps
+naive           1       0.0650       0.0890          15376    100
+naive           8       0.4973       0.6384          16087    100
+naive          64       4.1765       5.8386          15324    100
+naive         256      16.9437      18.2613          15109     59
+reordered       1       0.0069       0.0075         144009    100
+reordered       8       0.0593       0.0761         134812    100
+reordered      64       0.4886       0.6710         130976    100
+reordered     256       2.0050       2.6852         127680    100
+blocked         1       0.0097       0.0100         102701    100
+blocked         8       0.0705       0.0813         113451    100
+blocked        64       0.5513       0.7378         116079    100
+blocked       256       2.2727       3.0693         112640    100
+parallel        1       2.0822      16.3527            480    100
+parallel        8       0.0779       0.1595         102708    100
+parallel       64       0.5974       0.8238         107134    100
+parallel      256       0.6586       1.1921         388713    100
+=== BENCH RUN 2 ===
+MiniInfer benchmark | OpenMP threads: 8
+
+MATMUL  C[n x n] = A[n x n] * B[n x n]
+kernel          n    median ms       p95 ms    GFLOP/s   reps
+naive          64        0.068        0.158       7.69    100
+reordered      64        0.015        0.022      35.70    100
+blocked        64        0.018        0.024      29.87    100
+parallel       64        0.020        0.364      25.98    100
+naive         128        0.656        0.818       6.40    100
+reordered     128        0.138        0.207      30.41    100
+blocked       128        0.170        0.221      24.67    100
+parallel      128        3.207       14.740       1.31    100
+naive         256        9.513       10.868       3.53    100
+reordered     256        1.371        1.724      24.47    100
+blocked       256        1.812        2.274      18.52    100
+parallel      256        3.544       13.155       9.47    100
+naive         512       98.117       99.166       2.74     11
+reordered     512       10.907       12.420      24.61     90
+blocked       512       16.286       17.540      16.48     62
+parallel      512        3.996       15.213      67.18    100
+naive        1024     2487.121     2489.244       0.86      3
+reordered    1024      111.451      140.219      19.27      9
+blocked      1024      144.213      152.362      14.89      7
+parallel     1024       29.395       41.920      73.06     34
+
+MODEL  end-to-end forward pass
+kernel      batch    median ms       p95 ms       images/s   reps
+naive           1       0.1329       0.2035           7525    100
+naive           8       1.0850       1.6591           7373    100
+naive          64       7.6107      10.2141           8409    100
+naive         256      22.4623      26.6743          11397     45
+reordered       1       0.0081       0.0084         123274    100
+reordered       8       0.0743       0.1217         107692    100
+reordered      64       0.5981       1.3765         107002    100
+reordered     256       2.3940       3.1619         106934    100
+blocked         1       0.0111       0.0111          90473    100
+blocked         8       0.0782       0.0895         102355    100
+blocked        64       0.6202       0.7246         103200    100
+blocked       256       2.4869       3.0830         102938    100
+parallel        1       0.0433      16.8037          23083    100
+parallel        8       0.0751       0.1316         106475    100
+parallel       64       0.6004       0.9819         106595    100
+parallel      256       0.6733       1.0042         380243    100
+=== PYTORCH ===
+PyTorch 2.14.1+cu130 | threads: 8
+
+MATMUL
+     n    median ms       p95 ms    GFLOP/s
+    64        3.279       11.673       0.16
+   128        0.013        0.033     331.07
+   256        0.068        0.145     495.11
+   512        0.539        1.738     497.84
+  1024        4.816        6.638     445.90
+
+MODEL (same 784-128-10 shape, random weights; timing doesn't depend on values)
+ batch    median ms       p95 ms       images/s
+     1       0.0210       0.0887          47637
+     8       0.0264       0.0692         302973
+    64       0.0610       0.1549        1048579
+   256       0.1922       0.5307        1331627
